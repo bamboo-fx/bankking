@@ -1,0 +1,194 @@
+"use client";
+
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { motion } from "framer-motion";
+import { ArrowLeft, Layers, Brain, MessageSquare } from "lucide-react";
+import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+
+const modules: Record<string, { title: string; description: string; color: string }> = {
+  accounting: {
+    title: "Accounting",
+    description: "Master fundamental accounting concepts and financial statements",
+    color: "from-blue-500 to-blue-600",
+  },
+  valuation: {
+    title: "Valuation",
+    description: "Learn valuation methodologies and techniques",
+    color: "from-purple-500 to-purple-600",
+  },
+  "ev-vs-equity": {
+    title: "Enterprise Value vs Equity Value",
+    description: "Understand the bridge between EV and equity value",
+    color: "from-green-500 to-green-600",
+  },
+  dcf: {
+    title: "DCF",
+    description: "Master discounted cash flow analysis",
+    color: "from-orange-500 to-orange-600",
+  },
+  ma: {
+    title: "M&A",
+    description: "Learn mergers and acquisitions concepts",
+    color: "from-red-500 to-red-600",
+  },
+  lbo: {
+    title: "LBO",
+    description: "Understand leveraged buyout modeling",
+    color: "from-indigo-500 to-indigo-600",
+  },
+};
+
+const learningModes = [
+  {
+    id: "flashcards",
+    title: "Flashcards",
+    description: "Review key concepts with 10 random flashcards per round",
+    icon: Layers,
+    color: "from-blue-500 to-blue-600",
+    bgColor: "bg-blue-50",
+    borderColor: "border-blue-200 hover:border-blue-400",
+  },
+  {
+    id: "quiz",
+    title: "Multiple Choice Quiz",
+    description: "Test your knowledge with 5 random questions",
+    icon: Brain,
+    color: "from-green-500 to-green-600",
+    bgColor: "bg-green-50",
+    borderColor: "border-green-200 hover:border-green-400",
+  },
+  {
+    id: "open-ended",
+    title: "Open-Ended Practice",
+    description: "Practice answering questions and get AI feedback",
+    icon: MessageSquare,
+    color: "from-purple-500 to-purple-600",
+    bgColor: "bg-purple-50",
+    borderColor: "border-purple-200 hover:border-purple-400",
+  },
+];
+
+export default async function ModulePage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  const module = modules[id];
+
+  if (!module) {
+    notFound();
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50">
+      <div className="container mx-auto px-4 py-12">
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.3 }}
+          className="mb-8"
+        >
+          <Link href="/">
+            <Button variant="outline" className="gap-2">
+              <ArrowLeft className="w-4 h-4" />
+              Back to Modules
+            </Button>
+          </Link>
+        </motion.div>
+
+        <div className="max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-12"
+          >
+            <motion.div
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.5, type: "spring" }}
+              className={`w-24 h-24 mx-auto rounded-2xl bg-gradient-to-br ${module.color} mb-6 flex items-center justify-center text-white font-bold text-4xl shadow-2xl`}
+            >
+              {module.title.charAt(0)}
+            </motion.div>
+            <h1 className="text-5xl font-bold text-slate-900 mb-4 bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">
+              {module.title}
+            </h1>
+            <p className="text-xl text-slate-600">
+              {module.description}
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <Card className="shadow-xl border-2 bg-white/80 backdrop-blur-sm">
+              <CardContent className="p-8">
+                <h2 className="text-3xl font-semibold text-slate-900 mb-8 text-center">
+                  Choose Your Learning Mode
+                </h2>
+
+                <div className="space-y-4">
+                  {learningModes.map((mode, index) => {
+                    const Icon = mode.icon;
+                    return (
+                      <motion.div
+                        key={mode.id}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.3, delay: 0.3 + index * 0.1 }}
+                      >
+                        <Link href={`/module/${id}/${mode.id}`}>
+                          <div className={`group border-2 rounded-xl p-6 transition-all duration-300 ${mode.bgColor} ${mode.borderColor} hover:shadow-lg cursor-pointer relative overflow-hidden`}>
+                            {/* Hover gradient overlay */}
+                            <div className="absolute inset-0 bg-gradient-to-r opacity-0 group-hover:opacity-5 transition-opacity duration-300" style={{ background: `linear-gradient(135deg, currentColor 0%, currentColor 100%)` }}></div>
+
+                            <div className="flex items-start gap-4 relative z-10">
+                              <div className={`flex-shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br ${mode.color} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                                <Icon className="w-7 h-7 text-white" />
+                              </div>
+                              <div className="flex-1">
+                                <h3 className="text-xl font-semibold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
+                                  {mode.title}
+                                </h3>
+                                <p className="text-slate-600">
+                                  {mode.description}
+                                </p>
+                              </div>
+                              <div className="flex-shrink-0 text-slate-400 group-hover:text-blue-600 group-hover:translate-x-1 transition-all duration-300">
+                                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                </svg>
+                              </div>
+                            </div>
+                          </div>
+                        </Link>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+            className="text-center mt-8 text-slate-600"
+          >
+            <p className="flex items-center justify-center gap-2">
+              <span className="inline-block w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
+              Select a mode above to start practicing
+            </p>
+          </motion.div>
+        </div>
+      </div>
+    </div>
+  );
+}

@@ -1,0 +1,67 @@
+[
+  {
+    "content": "Install Supabase and Stripe dependencies",
+    "status": "completed",
+    "activeForm": "Installing dependencies"
+  },
+  {
+    "content": "Create .env.local with environment variables",
+    "status": "completed",
+    "activeForm": "Creating environment config"
+  },
+  {
+    "content": "Set up Supabase client utilities",
+    "status": "completed",
+    "activeForm": "Setting up Supabase clients"
+  },
+  {
+    "content": "Create database schema and RLS policies",
+    "status": "completed",
+    "activeForm": "Creating database schema"
+  },
+  {
+    "content": "Create authentication pages (login/callback)",
+    "status": "completed",
+    "activeForm": "Creating auth pages"
+  },
+  {
+    "content": "Add auth context and user hooks",
+    "status": "completed",
+    "activeForm": "Adding auth state management"
+  },
+  {
+    "content": "Create middleware for route protection",
+    "status": "completed",
+    "activeForm": "Creating route protection"
+  },
+  {
+    "content": "Create Stripe API routes",
+    "status": "completed",
+    "activeForm": "Creating Stripe API routes"
+  },
+  {
+    "content": "Update pricing page with Stripe integration",
+    "status": "completed",
+    "activeForm": "Integrating Stripe checkout"
+  },
+  {
+    "content": "Create user account/profile page",
+    "status": "completed",
+    "activeForm": "Creating account page"
+  },
+  {
+    "content": "Update module pages with auth checks",
+    "status": "completed",
+    "activeForm": "Adding auth to modules"
+  },
+  {
+    "content": "Test complete authentication flow",
+    "status": "in_progress",
+    "activeForm": "Testing authentication"
+  },
+  {
+    "content": "Test complete payment flow",
+    "status": "pending",
+    "activeForm": "Testing payments"
+  }
+]

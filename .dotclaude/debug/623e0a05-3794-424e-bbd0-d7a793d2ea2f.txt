@@ -1,0 +1,60 @@
+2025-11-21T19:49:49.210Z [DEBUG] Watching for changes in setting files /home/vibecode/.claude/settings.json...
+2025-11-21T19:49:49.215Z [DEBUG] [LSP MANAGER] initializeLspServerManager() called
+2025-11-21T19:49:49.215Z [DEBUG] [LSP MANAGER] Created manager instance, state=pending
+2025-11-21T19:49:49.215Z [DEBUG] [LSP MANAGER] Starting async initialization (generation 1)
+2025-11-21T19:49:49.215Z [DEBUG] [LSP SERVER MANAGER] initialize() called
+2025-11-21T19:49:49.215Z [DEBUG] [LSP SERVER MANAGER] Calling getAllLspServers()
+2025-11-21T19:49:49.222Z [DEBUG] Found 0 plugins (0 enabled, 0 disabled)
+2025-11-21T19:49:49.224Z [DEBUG] Writing to temp file: /home/vibecode/.claude.json.tmp.566.1763754589224
+2025-11-21T19:49:49.224Z [DEBUG] Preserving file permissions: 100644
+2025-11-21T19:49:49.233Z [DEBUG] Temp file written successfully, size: 40931 bytes
+2025-11-21T19:49:49.233Z [DEBUG] Applied original permissions to temp file
+2025-11-21T19:49:49.233Z [DEBUG] Renaming /home/vibecode/.claude.json.tmp.566.1763754589224 to /home/vibecode/.claude.json
+2025-11-21T19:49:49.233Z [DEBUG] File /home/vibecode/.claude.json written atomically
+2025-11-21T19:49:49.233Z [DEBUG] Total LSP servers loaded: 0
+2025-11-21T19:49:49.234Z [DEBUG] [LSP SERVER MANAGER] getAllLspServers returned 0 server(s)
+2025-11-21T19:49:49.234Z [DEBUG] LSP manager initialized with 0 servers
+2025-11-21T19:49:49.234Z [DEBUG] LSP server manager initialized successfully
+2025-11-21T19:49:49.234Z [DEBUG] LSP notification handlers registered successfully for all 0 server(s)
+2025-11-21T19:49:49.247Z [DEBUG] Loading skills from directories: managed=/etc/claude-code/.claude/skills, user=/home/vibecode/.claude/skills, project=/home/vibecode/workspace/.claude/skills
+2025-11-21T19:49:49.247Z [DEBUG] >>>>> getPluginSkills CALLED <<<<<
+2025-11-21T19:49:49.292Z [DEBUG] Creating shell snapshot for bash (/bin/bash)
+2025-11-21T19:49:49.292Z [DEBUG] Looking for shell config file: /home/vibecode/.bashrc
+2025-11-21T19:49:49.293Z [DEBUG] Snapshots directory: /home/vibecode/.claude/shell-snapshots
+2025-11-21T19:49:49.293Z [DEBUG] Creating snapshot at: /home/vibecode/.claude/shell-snapshots/snapshot-bash-1763754589293-xida9x.sh
+2025-11-21T19:49:49.293Z [DEBUG] Shell binary exists: true
+2025-11-21T19:49:49.293Z [DEBUG] Execution timeout: 10000ms
+2025-11-21T19:49:49.297Z [DEBUG] Writing to temp file: /home/vibecode/.claude/todos/623e0a05-3794-424e-bbd0-d7a793d2ea2f-agent-623e0a05-3794-424e-bbd0-d7a793d2ea2f.json.tmp.566.1763754589297
+2025-11-21T19:49:49.299Z [DEBUG] Temp file written successfully, size: 2 bytes
+2025-11-21T19:49:49.299Z [DEBUG] Renaming /home/vibecode/.claude/todos/623e0a05-3794-424e-bbd0-d7a793d2ea2f-agent-623e0a05-3794-424e-bbd0-d7a793d2ea2f.json.tmp.566.1763754589297 to /home/vibecode/.claude/todos/623e0a05-3794-424e-bbd0-d7a793d2ea2f-agent-623e0a05-3794-424e-bbd0-d7a793d2ea2f.json
+2025-11-21T19:49:49.299Z [DEBUG] File /home/vibecode/.claude/todos/623e0a05-3794-424e-bbd0-d7a793d2ea2f-agent-623e0a05-3794-424e-bbd0-d7a793d2ea2f.json written atomically
+2025-11-21T19:49:49.303Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2025-11-21T19:49:49.303Z [DEBUG] Total plugin skills loaded: 0
+2025-11-21T19:49:49.303Z [DEBUG] Total plugin commands loaded: 0
+2025-11-21T19:49:49.303Z [DEBUG] Registered 0 hooks from 0 plugins
+2025-11-21T19:49:49.312Z [DEBUG] Loaded 0 unique skills (managed: 0, user: 0, project: 0, duplicates removed: 0)
+2025-11-21T19:49:49.312Z [DEBUG] getSkillsIfEnabled returning: 0 skill dir commands, 0 plugin skills
+2025-11-21T19:49:49.312Z [DEBUG] Total plugin agents loaded: 0
+2025-11-21T19:49:49.321Z [DEBUG] Writing to temp file: /home/vibecode/.claude.json.tmp.566.1763754589321
+2025-11-21T19:49:49.321Z [DEBUG] Preserving file permissions: 100644
+2025-11-21T19:49:49.329Z [DEBUG] Temp file written successfully, size: 40931 bytes
+2025-11-21T19:49:49.329Z [DEBUG] Applied original permissions to temp file
+2025-11-21T19:49:49.329Z [DEBUG] Renaming /home/vibecode/.claude.json.tmp.566.1763754589321 to /home/vibecode/.claude.json
+2025-11-21T19:49:49.330Z [DEBUG] File /home/vibecode/.claude.json written atomically
+2025-11-21T19:49:49.382Z [DEBUG] Ripgrep first use test: PASSED (mode=system, path=rg)
+2025-11-21T19:49:49.393Z [DEBUG] Shell snapshot created successfully (1655 bytes)
+2025-11-21T19:49:49.404Z [DEBUG] Getting matching hook commands for SubagentStart with query: Explore
+2025-11-21T19:49:49.404Z [DEBUG] Found 0 hook matchers in settings
+2025-11-21T19:49:49.404Z [DEBUG] Matched 0 unique hooks for query "Explore" (0 before deduplication)
+2025-11-21T19:49:49.405Z [DEBUG] Getting matching hook commands for SubagentStart with query: Plan
+2025-11-21T19:49:49.405Z [DEBUG] Found 0 hook matchers in settings
+2025-11-21T19:49:49.405Z [DEBUG] Matched 0 unique hooks for query "Plan" (0 before deduplication)
+2025-11-21T19:49:49.409Z [DEBUG] Writing to temp file: /home/vibecode/.claude.json.tmp.566.1763754589409
+2025-11-21T19:49:49.409Z [DEBUG] Preserving file permissions: 100644
+2025-11-21T19:49:49.412Z [DEBUG] Temp file written successfully, size: 40931 bytes
+2025-11-21T19:49:49.412Z [DEBUG] Applied original permissions to temp file
+2025-11-21T19:49:49.412Z [DEBUG] Renaming /home/vibecode/.claude.json.tmp.566.1763754589409 to /home/vibecode/.claude.json
+2025-11-21T19:49:49.412Z [DEBUG] File /home/vibecode/.claude.json written atomically
+2025-11-21T19:49:49.462Z [DEBUG] Getting matching hook commands for SessionStart with query: resume
+2025-11-21T19:49:49.463Z [DEBUG] Found 0 hook matchers in settings
+2025-11-21T19:49:49.463Z [DEBUG] Matched 0 unique hooks for query "resume" (0 before deduplication)

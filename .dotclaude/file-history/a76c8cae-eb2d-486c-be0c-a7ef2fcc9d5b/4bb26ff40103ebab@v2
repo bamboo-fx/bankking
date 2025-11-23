@@ -1,0 +1,28 @@
+# Supabase Configuration
+# Get these from your Supabase project settings: https://app.supabase.com/project/_/settings/api
+NEXT_PUBLIC_SUPABASE_URL=your-project-url.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+
+# Stripe Configuration
+# Get these from your Stripe dashboard: https://dashboard.stripe.com/apikeys
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_your_publishable_key
+STRIPE_SECRET_KEY=sk_test_your_secret_key
+
+# Stripe Webhook Secret
+# Get this after creating a webhook endpoint: https://dashboard.stripe.com/webhooks
+STRIPE_WEBHOOK_SECRET=whsec_your_webhook_secret
+
+# App Configuration
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+
+# Stripe Product IDs (create these in Stripe dashboard)
+# Server-side price IDs for webhook validation
+STRIPE_MONTHLY_PRICE_ID=price_monthly_id_from_stripe
+STRIPE_YEARLY_PRICE_ID=price_yearly_id_from_stripe
+
+# Client-side price IDs (same as above, but NEXT_PUBLIC_ prefix makes them available in browser)
+NEXT_PUBLIC_STRIPE_MONTHLY_PRICE_ID=price_monthly_id_from_stripe
+NEXT_PUBLIC_STRIPE_YEARLY_PRICE_ID=price_yearly_id_from_stripe
+
+# Supabase Service Role Key (for webhooks that need to bypass RLS)
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key

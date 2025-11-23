@@ -1,0 +1,12 @@
+[
+  {
+    "content": "Revert AnimatedCounter to original without cycles",
+    "status": "completed",
+    "activeForm": "Reverting AnimatedCounter to original without cycles"
+  },
+  {
+    "content": "Add left-to-right slide animation for hover effect",
+    "status": "in_progress",
+    "activeForm": "Adding left-to-right slide animation for hover effect"
+  }
+]

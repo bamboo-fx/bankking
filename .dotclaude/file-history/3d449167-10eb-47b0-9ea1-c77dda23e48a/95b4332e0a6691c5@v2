@@ -1,0 +1,155 @@
+import { NextResponse } from "next/server";
+
+export async function POST(request: Request) {
+  try {
+    const { question, userAnswer, sampleAnswer, keyPoints } =
+      await request.json();
+
+    // Simple rule-based feedback system
+    const feedback = generateFeedback(userAnswer, keyPoints, sampleAnswer);
+
+    return NextResponse.json({ feedback });
+  } catch (error) {
+    console.error("Error in feedback API:", error);
+    return NextResponse.json(
+      { error: "Failed to generate feedback" },
+      { status: 500 }
+    );
+  }
+}
+
+function generateFeedback(
+  userAnswer: string,
+  keyPoints: string[],
+  sampleAnswer: string
+): string {
+  const userAnswerLower = userAnswer.toLowerCase();
+  const coveredPoints: string[] = [];
+  const missedPoints: string[] = [];
+
+  // Check which key points are covered
+  keyPoints.forEach((point) => {
+    const keywords = extractKeywords(point);
+    const isCovered = keywords.some((keyword) =>
+      userAnswerLower.includes(keyword.toLowerCase())
+    );
+
+    if (isCovered) {
+      coveredPoints.push(point);
+    } else {
+      missedPoints.push(point);
+    }
+  });
+
+  // Calculate completeness
+  const completeness = (coveredPoints.length / keyPoints.length) * 100;
+
+  // Check answer length
+  const wordCount = userAnswer.trim().split(/\s+/).length;
+  const lengthFeedback =
+    wordCount < 30
+      ? "Your answer is quite brief. Consider adding more detail and explanation."
+      : wordCount > 200
+      ? "Great detail! You've provided a comprehensive answer."
+      : "Good length. Your answer has sufficient detail.";
+
+  // Generate feedback message
+  let feedback = `**Analysis of Your Answer:**\n\n`;
+
+  // Completeness feedback
+  if (completeness >= 80) {
+    feedback += `✅ **Excellent coverage!** You addressed ${coveredPoints.length} out of ${keyPoints.length} key points (${completeness.toFixed(0)}%).\n\n`;
+  } else if (completeness >= 60) {
+    feedback += `👍 **Good coverage.** You addressed ${coveredPoints.length} out of ${keyPoints.length} key points (${completeness.toFixed(0)}%).\n\n`;
+  } else {
+    feedback += `📚 **Needs improvement.** You addressed ${coveredPoints.length} out of ${keyPoints.length} key points (${completeness.toFixed(0)}%).\n\n`;
+  }
+
+  // Length feedback
+  feedback += `**Length:** ${lengthFeedback}\n\n`;
+
+  // Covered points
+  if (coveredPoints.length > 0) {
+    feedback += `**Strengths - Points you covered:**\n`;
+    coveredPoints.forEach((point) => {
+      feedback += `✓ ${point}\n`;
+    });
+    feedback += `\n`;
+  }
+
+  // Missed points
+  if (missedPoints.length > 0) {
+    feedback += `**Areas to improve - Points to consider adding:**\n`;
+    missedPoints.forEach((point) => {
+      feedback += `○ ${point}\n`;
+    });
+    feedback += `\n`;
+  }
+
+  // Final recommendation
+  if (completeness >= 80) {
+    feedback += `**Overall:** Strong answer! You demonstrated solid understanding of the topic. Review the sample answer to see alternative ways of explaining these concepts.`;
+  } else if (completeness >= 60) {
+    feedback += `**Overall:** Good foundation. To improve, try to incorporate the missed points in your explanation. Compare your answer with the sample answer below.`;
+  } else {
+    feedback += `**Overall:** Your answer could be more comprehensive. Review the key points and sample answer carefully. Try to address each major concept when answering similar questions.`;
+  }
+
+  return feedback;
+}
+
+function extractKeywords(text: string): string[] {
+  // Remove common words and extract meaningful keywords
+  const commonWords = new Set([
+    "the",
+    "a",
+    "an",
+    "and",
+    "or",
+    "but",
+    "in",
+    "on",
+    "at",
+    "to",
+    "for",
+    "of",
+    "with",
+    "by",
+    "from",
+    "is",
+    "are",
+    "was",
+    "were",
+    "be",
+    "been",
+    "being",
+    "have",
+    "has",
+    "had",
+    "do",
+    "does",
+    "did",
+    "will",
+    "would",
+    "should",
+    "could",
+    "may",
+    "might",
+    "can",
+    "it",
+    "its",
+    "this",
+    "that",
+    "these",
+    "those",
+  ]);
+
+  const words = text
+    .toLowerCase()
+    .replace(/[^\w\s]/g, " ")
+    .split(/\s+/)
+    .filter((word) => word.length > 3 && !commonWords.has(word));
+
+  // Return unique words
+  return [...new Set(words)];
+}

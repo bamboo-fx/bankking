@@ -1,0 +1,28 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { ChevronDown } from "lucide-react";
+
+interface ScrollIndicatorProps {
+  onClick?: () => void;
+}
+
+export function ScrollIndicator({ onClick }: ScrollIndicatorProps) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 1, duration: 0.5 }}
+      className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer group"
+      onClick={onClick}
+    >
+      <motion.div
+        animate={{ y: [0, 10, 0] }}
+        transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+        className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center shadow-lg group-hover:bg-blue-700 transition-colors"
+      >
+        <ChevronDown className="w-5 h-5 text-white" />
+      </motion.div>
+    </motion.div>
+  );
+}

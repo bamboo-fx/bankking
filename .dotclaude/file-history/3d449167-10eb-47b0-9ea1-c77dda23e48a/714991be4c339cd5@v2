@@ -1,0 +1,321 @@
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+import { questionBank, type OpenEndedQuestion } from "@/lib/questionBank";
+
+function shuffleArray<T>(array: T[]): T[] {
+  const newArray = [...array];
+  for (let i = newArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+  }
+  return newArray;
+}
+
+interface QuestionState {
+  userAnswer: string;
+  feedback: string | null;
+  isLoading: boolean;
+}
+
+export default function OpenEndedPage({ params }: { params: { id: string } }) {
+  const [questions, setQuestions] = useState<OpenEndedQuestion[]>([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [questionStates, setQuestionStates] = useState<QuestionState[]>([]);
+  const [isStarted, setIsStarted] = useState(false);
+
+  const moduleQuestions = questionBank[params.id];
+
+  const startSession = () => {
+    if (moduleQuestions?.openEnded) {
+      const shuffled = shuffleArray(moduleQuestions.openEnded);
+      const sessionQuestions = shuffled.slice(0, 5);
+      setQuestions(sessionQuestions);
+      setQuestionStates(
+        sessionQuestions.map(() => ({
+          userAnswer: "",
+          feedback: null,
+          isLoading: false,
+        }))
+      );
+      setCurrentIndex(0);
+      setIsStarted(true);
+    }
+  };
+
+  const handleAnswerChange = (value: string) => {
+    const newStates = [...questionStates];
+    newStates[currentIndex].userAnswer = value;
+    setQuestionStates(newStates);
+  };
+
+  const handleGetFeedback = async () => {
+    const currentQuestion = questions[currentIndex];
+    const currentState = questionStates[currentIndex];
+
+    if (!currentState.userAnswer.trim()) {
+      alert("Please write an answer before requesting feedback");
+      return;
+    }
+
+    const newStates = [...questionStates];
+    newStates[currentIndex].isLoading = true;
+    setQuestionStates(newStates);
+
+    try {
+      const response = await fetch("/api/feedback", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          question: currentQuestion.question,
+          userAnswer: currentState.userAnswer,
+          sampleAnswer: currentQuestion.sampleAnswer,
+          keyPoints: currentQuestion.keyPoints,
+        }),
+      });
+
+      const data = await response.json();
+
+      const updatedStates = [...questionStates];
+      updatedStates[currentIndex].feedback = data.feedback;
+      updatedStates[currentIndex].isLoading = false;
+      setQuestionStates(updatedStates);
+    } catch (error) {
+      console.error("Error getting feedback:", error);
+      const updatedStates = [...questionStates];
+      updatedStates[currentIndex].feedback =
+        "Error getting feedback. Please try again.";
+      updatedStates[currentIndex].isLoading = false;
+      setQuestionStates(updatedStates);
+    }
+  };
+
+  const handleNext = () => {
+    if (currentIndex < questions.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+    }
+  };
+
+  const handlePrevious = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+    }
+  };
+
+  if (!moduleQuestions) {
+    return <div>Module not found</div>;
+  }
+
+  if (!isStarted) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+        <div className="container mx-auto px-4 py-12">
+          <div className="mb-8">
+            <Link
+              href={`/module/${params.id}`}
+              className="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center gap-2"
+            >
+              ← Back to Module
+            </Link>
+          </div>
+
+          <div className="max-w-2xl mx-auto text-center">
+            <div className="text-6xl mb-6">💬</div>
+            <h1 className="text-4xl font-bold text-slate-900 mb-4">
+              Open-Ended Practice
+            </h1>
+            <p className="text-xl text-slate-600 mb-8">
+              Practice answering questions and get AI-powered feedback
+            </p>
+
+            <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
+              <h2 className="text-2xl font-semibold mb-4">How it works:</h2>
+              <ul className="text-left space-y-3 text-slate-700">
+                <li className="flex items-start gap-3">
+                  <span className="text-purple-600 font-bold">1.</span>
+                  <span>You'll get 5 random open-ended questions</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-purple-600 font-bold">2.</span>
+                  <span>Type your answer in your own words</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-purple-600 font-bold">3.</span>
+                  <span>Click "Get Feedback" to receive AI analysis</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-purple-600 font-bold">4.</span>
+                  <span>Review sample answers and key points</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-purple-600 font-bold">5.</span>
+                  <span>Navigate between questions to practice at your pace</span>
+                </li>
+              </ul>
+            </div>
+
+            <button
+              onClick={startSession}
+              className="bg-purple-600 hover:bg-purple-700 text-white font-semibold px-8 py-4 rounded-lg text-lg transition-colors shadow-md"
+            >
+              Start Practice
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  const currentQuestion = questions[currentIndex];
+  const currentState = questionStates[currentIndex];
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+      <div className="container mx-auto px-4 py-12">
+        <div className="mb-8 flex justify-between items-center">
+          <Link
+            href={`/module/${params.id}`}
+            className="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center gap-2"
+          >
+            ← Back to Module
+          </Link>
+          <button
+            onClick={startSession}
+            className="bg-slate-600 hover:bg-slate-700 text-white font-medium px-4 py-2 rounded-lg transition-colors"
+          >
+            New Session
+          </button>
+        </div>
+
+        <div className="max-w-4xl mx-auto">
+          <div className="mb-6">
+            <div className="flex justify-between items-center mb-2">
+              <span className="text-slate-600 font-medium">
+                Question {currentIndex + 1} of {questions.length}
+              </span>
+              <span className="text-slate-600 font-medium">
+                Answered:{" "}
+                {questionStates.filter((s) => s.userAnswer.trim()).length} /{" "}
+                {questions.length}
+              </span>
+            </div>
+            <div className="w-full bg-slate-200 rounded-full h-2">
+              <div
+                className="bg-purple-600 h-2 rounded-full transition-all"
+                style={{
+                  width: `${((currentIndex + 1) / questions.length) * 100}%`,
+                }}
+              />
+            </div>
+          </div>
+
+          <div className="bg-white rounded-xl shadow-lg p-8 mb-6">
+            <h2 className="text-2xl font-medium text-slate-900 mb-6">
+              {currentQuestion.question}
+            </h2>
+
+            <div className="mb-6">
+              <label className="block text-sm font-medium text-slate-700 mb-2">
+                Your Answer:
+              </label>
+              <textarea
+                value={currentState.userAnswer}
+                onChange={(e) => handleAnswerChange(e.target.value)}
+                placeholder="Type your answer here... Be as detailed as possible."
+                className="w-full h-48 p-4 border-2 border-slate-300 rounded-lg focus:border-purple-500 focus:outline-none resize-none"
+                disabled={currentState.isLoading}
+              />
+            </div>
+
+            <button
+              onClick={handleGetFeedback}
+              disabled={currentState.isLoading || !currentState.userAnswer.trim()}
+              className={`w-full py-3 rounded-lg font-medium transition-colors ${
+                currentState.isLoading || !currentState.userAnswer.trim()
+                  ? "bg-slate-200 text-slate-400 cursor-not-allowed"
+                  : "bg-purple-600 text-white hover:bg-purple-700"
+              }`}
+            >
+              {currentState.isLoading ? "Getting Feedback..." : "Get AI Feedback"}
+            </button>
+
+            {currentState.feedback && (
+              <div className="mt-6 space-y-4">
+                <div className="bg-purple-50 border-2 border-purple-200 rounded-lg p-6">
+                  <h3 className="text-lg font-semibold text-purple-900 mb-3">
+                    AI Feedback:
+                  </h3>
+                  <p className="text-purple-800 whitespace-pre-wrap">
+                    {currentState.feedback}
+                  </p>
+                </div>
+
+                <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-6">
+                  <h3 className="text-lg font-semibold text-blue-900 mb-3">
+                    Sample Answer:
+                  </h3>
+                  <p className="text-blue-800 mb-4">
+                    {currentQuestion.sampleAnswer}
+                  </p>
+                  <h4 className="text-md font-semibold text-blue-900 mb-2">
+                    Key Points to Cover:
+                  </h4>
+                  <ul className="list-disc list-inside space-y-1 text-blue-800">
+                    {currentQuestion.keyPoints.map((point, index) => (
+                      <li key={index}>{point}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div className="flex justify-between items-center">
+            <button
+              onClick={handlePrevious}
+              disabled={currentIndex === 0}
+              className={`px-6 py-3 rounded-lg font-medium transition-colors ${
+                currentIndex === 0
+                  ? "bg-slate-200 text-slate-400 cursor-not-allowed"
+                  : "bg-slate-600 text-white hover:bg-slate-700"
+              }`}
+            >
+              ← Previous
+            </button>
+
+            <button
+              onClick={handleNext}
+              disabled={currentIndex === questions.length - 1}
+              className={`px-6 py-3 rounded-lg font-medium transition-colors ${
+                currentIndex === questions.length - 1
+                  ? "bg-slate-200 text-slate-400 cursor-not-allowed"
+                  : "bg-slate-600 text-white hover:bg-slate-700"
+              }`}
+            >
+              Next →
+            </button>
+          </div>
+
+          {currentIndex === questions.length - 1 && (
+            <div className="mt-8 text-center">
+              <div className="bg-purple-50 border-2 border-purple-200 rounded-lg p-6">
+                <p className="text-purple-800 font-medium text-lg mb-4">
+                  🎉 You've reached the last question!
+                </p>
+                <button
+                  onClick={startSession}
+                  className="bg-purple-600 hover:bg-purple-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
+                >
+                  Start New Session
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
