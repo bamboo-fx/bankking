@@ -13,6 +13,10 @@ interface SubscriptionGuardProps {
 }
 
 export function SubscriptionGuard({ children }: SubscriptionGuardProps) {
+  // Authentication and subscription checks disabled - allow all access
+  return <>{children}</>;
+  
+  /* DISABLED - Original subscription guard code
   const router = useRouter();
   const { user, profile, loading } = useAuth();
 
@@ -115,4 +119,5 @@ export function SubscriptionGuard({ children }: SubscriptionGuardProps) {
   }
 
   return <>{children}</>;
+  */
 }

@@ -1,12 +1,17 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
-import Stripe from "stripe";
+// import { createClient } from "@/lib/supabase/server";
+// import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2024-12-18.acacia",
-});
+// Stripe disabled
+// const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+//   apiVersion: "2024-12-18.acacia",
+// });
 
 export async function POST(request: Request) {
+  // Stripe checkout disabled
+  return NextResponse.json({ error: "Stripe payments are disabled" }, { status: 503 });
+  
+  /* DISABLED - Original Stripe checkout code
   try {
     const supabase = await createClient();
 
@@ -78,4 +83,5 @@ export async function POST(request: Request) {
       { status: 500 }
     );
   }
+  */
 }

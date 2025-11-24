@@ -13,6 +13,11 @@ export default function PricingPage() {
   const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
 
   const handleSubscribe = async (planId: string, priceId: string) => {
+    // Stripe payments disabled
+    alert("Payments are currently disabled. This is a demo version.");
+    setLoadingPlan(null);
+    
+    /* DISABLED - Original Stripe checkout code
     try {
       setLoadingPlan(planId);
 
@@ -48,6 +53,7 @@ export default function PricingPage() {
       );
       setLoadingPlan(null);
     }
+    */
   };
 
   const pricingPlans = [

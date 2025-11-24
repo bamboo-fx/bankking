@@ -1,12 +1,17 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
-import Stripe from "stripe";
+// Stripe portal disabled
+// import { createClient } from "@/lib/supabase/server";
+// import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2024-12-18.acacia",
-});
+// const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+//   apiVersion: "2024-12-18.acacia",
+// });
 
 export async function GET() {
+  // Stripe portal disabled
+  return NextResponse.json({ error: "Stripe customer portal is disabled" }, { status: 503 });
+  
+  /* DISABLED - Original Stripe portal code
   try {
     const supabase = await createClient();
 
@@ -48,4 +53,5 @@ export async function GET() {
       { status: 500 }
     );
   }
+  */
 }

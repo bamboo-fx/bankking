@@ -1,21 +1,26 @@
 import { NextResponse } from "next/server";
-import { headers } from "next/headers";
-import { createClient } from "@supabase/supabase-js";
-import Stripe from "stripe";
+// Stripe webhook disabled
+// import { headers } from "next/headers";
+// import { createClient } from "@supabase/supabase-js";
+// import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2024-12-18.acacia",
-});
+// const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+//   apiVersion: "2024-12-18.acacia",
+// });
 
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
+// const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 
 // Create Supabase client with service role for webhook (bypasses RLS)
-const supabaseAdmin = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+// const supabaseAdmin = createClient(
+//   process.env.NEXT_PUBLIC_SUPABASE_URL!,
+//   process.env.SUPABASE_SERVICE_ROLE_KEY!
+// );
 
 export async function POST(request: Request) {
+  // Stripe webhook disabled
+  return NextResponse.json({ received: false, message: "Stripe webhooks are disabled" }, { status: 503 });
+  
+  /* DISABLED - Original Stripe webhook code
   const body = await request.text();
   const headersList = await headers();
   const signature = headersList.get("stripe-signature");
@@ -135,4 +140,5 @@ export async function POST(request: Request) {
       { status: 500 }
     );
   }
+  */
 }

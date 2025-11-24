@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { ArrowLeft, Layers, Brain, MessageSquare } from "lucide-react";
 import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { SubscriptionGuard } from "@/components/SubscriptionGuard";
+// import { SubscriptionGuard } from "@/components/SubscriptionGuard";
 
 const modules: Record<string, { title: string; description: string; color: string }> = {
   accounting: {
@@ -85,8 +85,8 @@ export default function ModulePage({
   }
 
   return (
-    <SubscriptionGuard>
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50">
+    // <SubscriptionGuard>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -181,6 +181,6 @@ export default function ModulePage({
           </div>
         </div>
       </div>
-    </SubscriptionGuard>
+    {/* </SubscriptionGuard> */}
   );
 }

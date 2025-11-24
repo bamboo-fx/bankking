@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
-import { SubscriptionGuard } from "@/components/SubscriptionGuard";
+// import { SubscriptionGuard } from "@/components/SubscriptionGuard";
 
 function shuffleArray<T>(array: T[]): T[] {
   const newArray = [...array];
@@ -59,7 +59,7 @@ export default function FlashcardsPage({ params }: { params: Promise<{ id: strin
 
   if (!moduleQuestions) {
     return (
-      <SubscriptionGuard>
+      {/* <SubscriptionGuard> */}
         <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 flex items-center justify-center px-4">
           <Card className="p-8 max-w-md text-center shadow-xl border-2 border-blue-100">
             <p className="text-xl text-slate-700">Module not found</p>
@@ -71,13 +71,13 @@ export default function FlashcardsPage({ params }: { params: Promise<{ id: strin
             </Link>
           </Card>
         </div>
-      </SubscriptionGuard>
+      {/* </SubscriptionGuard> */}
     );
   }
 
   if (!isStarted) {
     return (
-      <SubscriptionGuard>
+      {/* <SubscriptionGuard> */}
         <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
             <motion.div
@@ -161,7 +161,7 @@ export default function FlashcardsPage({ params }: { params: Promise<{ id: strin
             </div>
           </div>
         </div>
-      </SubscriptionGuard>
+      {/* </SubscriptionGuard> */}
     );
   }
 
