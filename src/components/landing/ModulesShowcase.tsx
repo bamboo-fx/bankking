@@ -133,19 +133,9 @@ export function ModulesShowcase() {
           transition={{ duration: 0.6, delay: 0.8 }}
           className="mt-16 text-center"
         >
-          <Link href="/pricing">
-            <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-blue-50 border-2 border-blue-200 text-blue-700 font-medium cursor-pointer relative overflow-hidden group">
-              {/* Sliding blue background */}
-              <div className="absolute inset-0 bg-blue-500 rounded-full transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out"></div>
-
-              {/* Content */}
-              <div className="w-2 h-2 bg-blue-500 group-hover:bg-white rounded-full animate-pulse relative z-10 transition-colors duration-300"></div>
-              <span className="relative z-10 group-hover:text-white transition-colors duration-300">
-                <span className="group-hover:hidden">Ready to ace your interview?</span>
-                <span className="hidden group-hover:inline">Get started for free</span>
-              </span>
-            </div>
-          </Link>
+          <div className="text-slate-600 text-sm">
+            All modules are free to access. Click any module above to start learning!
+          </div>
         </motion.div>
       </div>
     </section>

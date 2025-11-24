@@ -111,7 +111,7 @@ export function HeroSection({ onScrollClick }: { onScrollClick: () => void }) {
               transition={{ delay: 0.5, duration: 0.6 }}
               className="flex flex-wrap gap-4"
             >
-              <Link href="/pricing">
+              <Link href="#modules">
                 <Button size="lg" className="gap-2 bg-blue-600 hover:bg-blue-700 text-base sm:text-lg px-6 sm:px-8 shadow-2xl shadow-blue-500/50">
                   <TrendingUp className="w-5 h-5" />
                   Start Practicing Now

@@ -13,47 +13,9 @@ export default function PricingPage() {
   const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
 
   const handleSubscribe = async (planId: string, priceId: string) => {
-    // Stripe payments disabled
-    alert("Payments are currently disabled. This is a demo version.");
+    // Payments disabled - just show a message
+    alert("All features are free! No payment required. You can access all modules and quizzes directly.");
     setLoadingPlan(null);
-    
-    /* DISABLED - Original Stripe checkout code
-    try {
-      setLoadingPlan(planId);
-
-      const response = await fetch("/api/stripe/create-checkout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ priceId }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        if (response.status === 401) {
-          // User not authenticated, redirect to login
-          router.push("/auth/login");
-          return;
-        }
-        throw new Error(data.error || "Failed to create checkout session");
-      }
-
-      if (data.url) {
-        // Redirect to Stripe Checkout
-        window.location.href = data.url;
-      }
-    } catch (error) {
-      console.error("Error creating checkout session:", error);
-      alert(
-        error instanceof Error
-          ? error.message
-          : "Something went wrong. Please try again."
-      );
-      setLoadingPlan(null);
-    }
-    */
   };
 
   const pricingPlans = [
