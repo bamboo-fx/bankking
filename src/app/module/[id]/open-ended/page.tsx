@@ -188,7 +188,6 @@ export default function OpenEndedPage({ params }: { params: Promise<{ id: string
   const progress = ((currentIndex + 1) / questions.length) * 100;
 
   return (
-    {/* <SubscriptionGuard> */}
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12">
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mb-6 sm:mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4">
@@ -322,6 +321,5 @@ export default function OpenEndedPage({ params }: { params: Promise<{ id: string
         </div>
       </div>
       </div>
-    {/* </SubscriptionGuard> */}
   );
 }

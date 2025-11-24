@@ -59,25 +59,22 @@ export default function FlashcardsPage({ params }: { params: Promise<{ id: strin
 
   if (!moduleQuestions) {
     return (
-      {/* <SubscriptionGuard> */}
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 flex items-center justify-center px-4">
-          <Card className="p-8 max-w-md text-center shadow-xl border-2 border-blue-100">
-            <p className="text-xl text-slate-700">Module not found</p>
-            <Link href="/" className="inline-block mt-4">
-              <Button variant="outline" className="gap-2">
-                <ArrowLeft className="w-4 h-4" />
-                Go Home
-              </Button>
-            </Link>
-          </Card>
-        </div>
-      {/* </SubscriptionGuard> */}
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 flex items-center justify-center px-4">
+        <Card className="p-8 max-w-md text-center shadow-xl border-2 border-blue-100">
+          <p className="text-xl text-slate-700">Module not found</p>
+          <Link href="/" className="inline-block mt-4">
+            <Button variant="outline" className="gap-2">
+              <ArrowLeft className="w-4 h-4" />
+              Go Home
+            </Button>
+          </Link>
+        </Card>
+      </div>
     );
   }
 
   if (!isStarted) {
     return (
-      {/* <SubscriptionGuard> */}
         <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
             <motion.div
@@ -161,7 +158,6 @@ export default function FlashcardsPage({ params }: { params: Promise<{ id: strin
             </div>
           </div>
         </div>
-      {/* </SubscriptionGuard> */}
     );
   }
 

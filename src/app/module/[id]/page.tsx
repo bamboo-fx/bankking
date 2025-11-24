@@ -181,6 +181,5 @@ export default function ModulePage({
           </div>
         </div>
       </div>
-    {/* </SubscriptionGuard> */}
   );
 }
