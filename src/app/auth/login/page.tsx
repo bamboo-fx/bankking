@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { Chrome, Loader2 } from "lucide-react";
@@ -8,7 +8,7 @@ import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
-export default function LoginPage() {
+function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
   const searchParams = useSearchParams();
   const redirectTo = searchParams.get("redirectTo") || "/";
@@ -90,5 +90,17 @@ export default function LoginPage() {
         </div>
       </motion.div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 flex items-center justify-center">
+        <Loader2 className="w-8 h-8 text-blue-600 animate-spin" />
+      </div>
+    }>
+      <LoginForm />
+    </Suspense>
   );
 }

@@ -425,7 +425,6 @@ export const questionBank: Record<string, ModuleQuestions> = {
       },
       {
         question: "Why is cash subtracted in the Enterprise Value calculation?",
-        answer: "It's a non-operating asset that reduces the net acquisition cost",
         options: [
           "Because cash is not valuable",
           "It's a non-operating asset that reduces the net acquisition cost",

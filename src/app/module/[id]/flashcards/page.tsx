@@ -165,7 +165,6 @@ export default function FlashcardsPage({ params }: { params: Promise<{ id: strin
   const progress = ((currentIndex + 1) / questions.length) * 100;
 
   return (
-    <SubscriptionGuard>
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12">
           <motion.div
@@ -308,6 +307,5 @@ export default function FlashcardsPage({ params }: { params: Promise<{ id: strin
         </div>
       </div>
       </div>
-    </SubscriptionGuard>
   );
 }
